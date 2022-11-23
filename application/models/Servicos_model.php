@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Clivros_model extends CI_Model {
+class Servicos_model extends CI_Model {
    
     public function __construct()
     {
@@ -15,19 +15,19 @@ class Clivros_model extends CI_Model {
             //post já existe, devo editar
             $this->db->where('id', $dados['id']);
             unset($dados['id']); //para que o id não seja alterado
-            $this->db->update('posts', $dados); // atualiza todos os campos
+            $this->db->update('servicos', $dados); // atualiza todos os campos
             return $this->db->affected_rows(); //retorna todos dados alterados
 
         else:
             //post não existe , devo inserir
-            $this->db->insert('posts', $dados);
+            $this->db->insert('servicos', $dados);
             return $this->db->insert_id();
         endif;
     }
     public function get($limit=0, $offset=0){
         if($limit == 0):
             $this->db->order_by('id', 'desc');
-            $query = $this->db->get('posts');
+            $query = $this->db->get('servicos');
             if($query->num_rows() > 0):
                 return $query->result();
             else:
@@ -35,7 +35,7 @@ class Clivros_model extends CI_Model {
             endif;
         else:
             $this->db->order_by('id', 'desc');
-            $query = $this->db->get('posts', $limit);
+            $query = $this->db->get('servicos', $limit);
             if($query->num_rows() > 0):
                 return $query->result();
             else:
@@ -45,7 +45,7 @@ class Clivros_model extends CI_Model {
     }
     public function get_single($id=0){
         $this->db->where('id', $id);
-        $query = $this->db->get('posts', 1);
+        $query = $this->db->get('servicos', 1);
         if($query->num_rows() == 1):
             $row = $query->row();
             return $row;
@@ -56,7 +56,7 @@ class Clivros_model extends CI_Model {
 
     public function excluir($id=0){
         $this->db->where('id', $id);
-        $this->db->delete('posts');  // nome da tabela
+        $this->db->delete('servicos');  // nome da tabela
         return $this->db->affected_rows();
     }
 

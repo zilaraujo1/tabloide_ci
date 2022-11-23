@@ -10,14 +10,15 @@ class Paginas extends CI_Controller {
         //carrega os módulos e classes
         $this->load->helper('url');
         $this->load->model('options_model', 'option');
-        $this->load->model('clivros_model', 'post');
-        $this->load->model('livros_model', 'livro');
+        $this->load->model('servicos_model', 'serv');
+        $this->load->model('estabelecimentos_model', 'estab');
        // $this->output->cache(1440); //corrensponde a 24 horas até o  cache ser atualizado
         
     }
     public function index()
     {
      //debug:  echo 'página home';
+     $data['dono'] = $this->estab->get();
      $data['titulo'] = "BNTH | Home";
     $data['desc'] = "Exercício de exemplo do capítulo 5 do livro Codeigniter";
     
@@ -25,12 +26,17 @@ class Paginas extends CI_Controller {
         
     }
 
-    public function empresa(){
+    public function servico(){
 
        //debug: echo 'página empresa';
+        $id = $this->uri->segment(3); 
         $data['titulo'] = "BNTH | A Empresa";
         $data['description'] = "Informações sobre a empresa";
-        $this->load->view('empresa', $data);
+        $servico = $this->serv->get_single($id);
+        $estabel = $this->estab->get_single($id);
+        $data['serv'] = $servico;
+        $data['estab'] = $estabel;
+        $this->load->view('servico', $data);
     
     }
     public function video(){

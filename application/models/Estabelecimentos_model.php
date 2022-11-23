@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Livros_model extends CI_Model {
+class Estabelecimentos_model extends CI_Model {
    
     public function __construct()
     {
@@ -15,19 +15,19 @@ class Livros_model extends CI_Model {
             //post já existe, devo editar
             $this->db->where('id', $dados['id']);
             unset($dados['id']); //para que o id não seja alterado
-            $this->db->update('livros', $dados); // atualiza todos os campos
+            $this->db->update('estabelecimentos', $dados); // atualiza todos os campos
             return $this->db->affected_rows(); //retorna todos dados alterados
 
         else:
             //post não existe , devo inserir
-            $this->db->insert('livros', $dados);
+            $this->db->insert('estabelecimentos', $dados);
             return $this->db->insert_id();
         endif;
     }
     public function get($limit=0, $offset=0){
         if($limit == 0):
             $this->db->order_by('id', 'desc'); //pega os dados em ordem descrecente
-            $query = $this->db->get('livros');
+            $query = $this->db->get('estabelecimentos');
             if($query->num_rows() > 0): //verifica se as linhas foram alteradas
                 return $query->result(); //retorna os resultados da consulta
             else:
@@ -35,7 +35,7 @@ class Livros_model extends CI_Model {
             endif;
         else:
             $this->db->order_by('id', 'desc');
-            $query = $this->db->get('livros', $limit);
+            $query = $this->db->get('estabelecimentos', $limit);
             if($query->num_rows() > 0):
                 return $query->result();
             else:
@@ -46,7 +46,7 @@ class Livros_model extends CI_Model {
 
     public function get_single($id=0){
         $this->db->where('id', $id); // retorna dados pelo id escolhido
-        $query = $this->db->get('livros', 1);
+        $query = $this->db->get('estabelecimentos', 1);
         if($query->num_rows() == 1):
             $row = $query->row();
             return $row;
@@ -63,7 +63,7 @@ class Livros_model extends CI_Model {
         
        if($limit == 0):
             $this->db->where('titulo', 0); //pega os dados em ordem descrecente
-            $query = $this->db->get('livros',0);
+            $query = $this->db->get('estabelecimentos',0);
             if($query->num_rows() > 0): //verifica se as linhas foram alteradas
                 return $query->result(); //retorna os resultados da consulta
             else:
@@ -71,7 +71,7 @@ class Livros_model extends CI_Model {
             endif;
         else:
             $this->db->where('titulo', 'desc');
-            $query = $this->db->where('livros', $limit);
+            $query = $this->db->where('estabelecimentos', $limit);
             if($query->num_rows() > 0):
                 return $query->result();
             else:
@@ -83,7 +83,7 @@ class Livros_model extends CI_Model {
 
     public function excluir($id=0){
         $this->db->where('id', $id);// retorna dados pelo id escolhido
-        $this->db->delete('livros');  // nome da tabela (deleta o id indicado)
+        $this->db->delete('estabelecimentos');  // nome da tabela (deleta o id indicado)
         return $this->db->affected_rows();
     }
 

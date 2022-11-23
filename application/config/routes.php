@@ -6,8 +6,9 @@ $route['default_controller'] = 'Paginas';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['/'] = 'Paginas';
 
-$route['empresa'] = 'Paginas/empresa';
+$route['servico/(:num)'] = 'Paginas/servico';
 
 $route['listar'] = 'Livro/listar';     // Requer parámetros 9caso não tenha, carrega a home)
 $route['pesquisar'] = 'Livro/pesquisar';
