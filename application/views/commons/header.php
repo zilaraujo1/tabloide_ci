@@ -33,7 +33,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">HOME</a></li>
+        <li class="active"><a href="<?php echo base_url('/');?>">HOME</a></li>
         
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">COMÉRCIOS<span class="caret"></span></a>
         <ul class="dropdown-menu">

@@ -11,27 +11,27 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="../static/uploads/logos/{{ dono.fotob }}" alt="Foto">
+        <img src="<?php echo base_url('uploads/logos/'.$dono->foto);?>" alt="Foto">
         <div class="carousel-caption">
         </div>
       </div>
       
 
       <div class="item">
-        <img src="../static/uploads/logos/{{ dono.foto }}" alt="sem FOTO">
+        <img src="<?php echo base_url('uploads/logos/'.$dono->fotob);?>" alt="sem FOTO">
         <div class="carousel-caption">
         </div> 
 
        </div>
     
        <div class="item">
-        <img src="../static/uploads/logos/{{ dono.fotoc }}" alt="Image">
+        <img src="<?php echo base_url('uploads/logos/'.$dono->fotoc);?>" alt="Image">
         <div class="carousel-caption">
         </div>      
        
        </div>
        <div class="item">
-        <img src="../static/uploads/logos/{{ dono.fotod }}" alt="Image">
+        <img src="<?php echo base_url('uploads/logos/'.$dono->fotod);?>" alt="Image">
         <div class="carousel-caption">
         </div>  
     
@@ -51,7 +51,7 @@
 </div>
   
 <div class="container text-center"> 
- 
+<?php if (isset($serv)) : ?>
   <h3><?php echo $serv->descricao; ?> </h3><br>
   <div class="row">
     <div class="col-sm-4">
@@ -66,13 +66,11 @@
     </div>
     <div class="col-sm-4">
       <p><?php echo ($serv->descricao); ?></p>
-     
+   <?php  else :
+            echo '<p>Nenhum serviço cadastrado!</p>';
+          endif; 
+    ?>  
     </div>
 </div><br>
 
-<footer class="container-fluid text-center">
-  <p><?php echo $dono->endereco; ?> </p>
-</footer>
-
-</body>
-</html>
+<?php $this->load->view('commons/footer')  ?>

@@ -270,7 +270,7 @@
     <?php foreach($dono as $donos): ?>
     <div class="col-sm-2">
       <a href="<?php echo base_url('index.php/servico/'. $donos->id );?>">
-      <img src="<?php echo base_url('uploads/logos/'.$donos->imagem); ?>" class="img-responsive" style="width:100%" alt="Image">
+      <img src="<?php echo base_url('uploads/logos/'.$donos->foto); ?>" class="img-responsive" style="width:100%" alt="Image">
       <p><?php echo $donos->nome ?></p></a>
     </div>
     <?php endforeach; ?>
