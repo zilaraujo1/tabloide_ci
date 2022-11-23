@@ -51,27 +51,27 @@
 </div>
   
 <div class="container text-center"> 
-    
-  <h3><?php echo $servs->id ?></h3><br>
+ 
+  <h3><?php echo $serv->descricao; ?> </h3><br>
   <div class="row">
     <div class="col-sm-4">
-      <img src="../static/uploads/servicos/{{ serv.foto }}" class="img-responsive" style="width:100%" alt="Image">
-      <p>{{ serv.tipo }}</p>
+      <img src="<?php echo base_url('uploads/servicos/'.$serv->foto);?>" class="img-responsive" style="width:100%" alt="Image">
+      <p><?php echo $serv->tipo; ?></p>
     </div>
     <div class="col-sm-4"> 
-      <img src="../static/uploads/servicos/{{ serv.fotob }}" class="img-responsive" style="width:100%" alt="image">
-      <p>{{ serv.tipo }}</p>    
-    
+      <img src="<?php echo base_url('uploads/servicos/'.$serv->fotob);?>" class="img-responsive" style="width:100%" alt="image">
+      <p><?php echo $serv->tipo; ?></p>    
+
        
     </div>
     <div class="col-sm-4">
-      <p>{{ dono.descricao }}</p>
+      <p><?php echo ($serv->descricao); ?></p>
      
     </div>
 </div><br>
-{% endblock %}
+
 <footer class="container-fluid text-center">
-  <p>{{ dono.endereco }}</p>
+  <p><?php echo $dono->endereco; ?> </p>
 </footer>
 
 </body>

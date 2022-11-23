@@ -53,6 +53,16 @@ class Servicos_model extends CI_Model {
             return NULL;
         endif;
     }
+    public function get_estab($estab_fk=0){
+        $this->db->where('estab_fk', $estab_fk);
+        $query = $this->db->get('servicos', 1);
+        if($query->num_rows() == 1):
+            $row = $query->row();
+            return $row;
+        else:
+            return NULL;
+        endif;
+    }
 
     public function excluir($id=0){
         $this->db->where('id', $id);

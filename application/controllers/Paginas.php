@@ -29,13 +29,15 @@ class Paginas extends CI_Controller {
     public function servico(){
 
        //debug: echo 'página empresa';
-        $id = $this->uri->segment(3); 
+        $estab_fk = $this->uri->segment(2); 
         $data['titulo'] = "BNTH | A Empresa";
         $data['description'] = "Informações sobre a empresa";
-        $servico = $this->serv->get_single($id);
-        $estabel = $this->estab->get_single($id);
-        $data['serv'] = $servico;
-        $data['estab'] = $estabel;
+        $data['dono'] = $this->estab->get_single($estab_fk);
+        $data['serv'] = $this->serv->get_estab($estab_fk);
+
+    
+        //$estabel = $this->estab->get_single($id);
+       // $data['estab'] = $estabel;
         $this->load->view('servico', $data);
     
     }
