@@ -23,5 +23,7 @@ $route['controle_livros'] = 'Controle_livros';     // Requer parámetros 9caso n
 $route['controle_livros/(:num)'] = 'Paginas/postagem/$1';  // carrega a página com parâmetros
 
 //carrega a página de login do sistema
-$route['login'] = 'Setup/login';
-$route['painel'] = 'Setup/login';
+$route['login'] = 'Setup';
+$route['autentica_login'] = 'Setup/autentica_login';
+$route['admin/(:num)'] = 'Paginas/admin/$1';
+//$route['painel'] = 'Setup/login';

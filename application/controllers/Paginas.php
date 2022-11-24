@@ -9,12 +9,13 @@ class Paginas extends CI_Controller {
         parent::__construct();
         //carrega os módulos e classes
         $this->load->helper('url');
-        $this->load->model('options_model', 'option');
+        $this->load->model('usuarios_model', 'user');
         $this->load->model('servicos_model', 'serv');
         $this->load->model('estabelecimentos_model', 'estab');
        // $this->output->cache(1440); //corrensponde a 24 horas até o  cache ser atualizado
         
     }
+//-----------------------------------------------------------------------------------------
     public function index()
     {
      //debug:  echo 'página home';
@@ -25,7 +26,7 @@ class Paginas extends CI_Controller {
         $this->load->view('home', $data);
         
     }
-
+//------------------------------------------------------------------------------------------
     public function servico(){
 
        //debug: echo 'página empresa';
@@ -41,13 +42,18 @@ class Paginas extends CI_Controller {
         $this->load->view('servico', $data);
     
     }
-    public function video(){
-        $data['titulo'] = "BNTH | cadastro de usuarios";
-        $data['description'] = "cadastro de usuários";
-        $this->load->view('commons/header', $data);
-        $this->load->view('videoaulas');
-        $this->load->view('commons/footer');
-    }
+//----------------------------------------------------------------------------------------
+public function admin(){
+    $id = $this->uri->segment(2); 
+    $data['titulo'] = "BNTH | cadastro de usuarios";
+    $data['description'] = "cadastro de usuários";
+   
+    $data['dono'] = $this->user->get_single($id);
+   
+    $this->load->view('admin', $data);
+    
+}
+//----------------------------------------------------------------------------------------
     public function cadastro_users()
     {
     
@@ -86,7 +92,7 @@ class Paginas extends CI_Controller {
         $this->load->view('cadastro_users', $data);
     
     }
-
+//-----------------------------------------------------------------------------------------
 
     public function cadastro_livros()
     {
@@ -150,6 +156,8 @@ class Paginas extends CI_Controller {
         endif;
         $this->load->view('painel/postagem', $dados);
     } */
+
+//----------------------------------------------------------------------------------------
     public function videoaula(){
         if(($id = $this->uri->segment(2))> 0): //segment(2)= refêre-se a posição da rota chamada pós barra da url  no navegador
             if($videoaula = $this->video->get_single($id)): //método do model
