@@ -13,7 +13,7 @@ class Controle_livros extends CI_Controller{
     }
 
     public function index(){
-        redirect('controle_livros/listar', 'refresh');
+        redirect('Estabelecimento/listar', 'refresh');
     }
     public function listar(){
         //verifica se o usuário está logado
@@ -26,9 +26,9 @@ class Controle_livros extends CI_Controller{
         $dados['posts'] = $this->post->get();
         $this->load->view('painel/controle_livros', $dados);
     }
-    public function cadastrar(){
+    public function cadastro(){
         //verifica se o usuário está logado
-        verifica_login();
+        //verifica_login();
 
         //regras de validação
         $this->form_validation->set_rules('titulo', 'Título', 'trim|required');

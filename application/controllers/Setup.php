@@ -10,6 +10,7 @@ class Setup extends CI_Controller {
        $this->load->helper('form');
        $this->load->library('form_validation');
        $this->load->model('usuarios_model', 'user');
+       $this->load->model('estabelecimentos_model', 'estab');
         
     }
    
@@ -36,16 +37,19 @@ class Setup extends CI_Controller {
             $email = $this->input->post("email");
             $senha = $this->input->post("password");
             $usuario = $this->user->verifica_login($email, $senha);
+        
                 //usuário existe
                 if($usuario):
                     //senha ok, fazer login
-                   $this->session->set_userdata('logged', TRUE);
+                   $userdata = $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata($usuario);
+                    
+                    $data['user'] =  $_SESSION['id'];
                     //$this->session->set_userdata('password', $this->option->get('password'));
                       // Fazer o redirect para a home do painel
-                    //var_dump($_SESSION);
+                      //var_dump($usuario['id']);
                  
-                    redirect('admin', 'reflesh');
+                    redirect('admin', $data);
                 else:
                     //senha incorreta
                     set_msg('<p> Senha incorreta!</p>');
@@ -59,6 +63,20 @@ class Setup extends CI_Controller {
         
 
     }
+    //----------------------------------------------------------------------------------------
+ public function admin(){
+     $this->session->set_userdata('logged');
+    $data['user'] =  $_SESSION['id'];
+    $data['titulo'] = "Cadastro";
+    $data['estab'] = $this->estab->get();
+    $data['titulo'] = "Cadastro da empresa";
+    $data['description'] = "cadastro de usuários";
+   
+    //var_dump($_SESSION['id']);
+   
+    $this->load->view('admin',$data);
+    
+} 
     public function signup(){
         
             $nome = $this->input->post("nome");

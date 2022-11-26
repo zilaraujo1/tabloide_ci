@@ -1,8 +1,10 @@
 <?php $this->load->view('commons/header')  ?>
+
 <main class="container" >
+  <h2><?php echo $titulo ?></h2>
     <div class="row  m-5">
         <div class="col-sm-12 col-md-4 " >
-            <form method="POST" enctype="multipart/form-data">
+            <form action="cadastro" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="nome">Estabelecimento</label>
                   <input type="text" class="form-control" id="nome" name="nome"  placeholder="Entre com o nome do estabelecimento">
@@ -41,7 +43,7 @@
           </div>
                 <div class="form-group">
                     
-                    <input type="hidden" class="form-control" id="user" name="user" value="{{ user.id }}">
+                    <input type="text" class="form-control" id="user" name="user" value="<?php echo $user; ?>">
                 </div>
             
                 <button type="submit" class="btn btn-primary" onclick="return valida_estab()">Submit</button>
@@ -59,22 +61,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                
+                <?php foreach($estab as $result): ?>
                   <tr>
-                    <th scope="row"><?php echo $dono->id; ?></th>
-                    <td>{{ result.nome }}</td>
-                    <td>{{ result.endereco }}</td>
-                    <td>{{ result.telefone }}</td>
+                    <th scope="row">
+                    <td><?php echo $result->nome; ?></td>
+                    <td><?php echo $result->endereco; ?></td>
+                    <td><?php echo $result->telefone; ?></td>
+                 
                   </tr>
-                
+               <?php endforeach; ?>
                  
                 </tbody>
               </table>
             
               <div class="col-md-12 ">
-                  <button class="btn btn-primary preview" type="button" ><a href="/editar/{{ user.id }}">Edição de itens</a></button>
-                  <button class="btn btn-success preview" type="button" ><a href="/form/{{ user.id }}">Cadastrar Itens</a></button>
-                  <button class="btn btn-success preview" type="button" ><a href="/form_servico/{{ user.id }}">Cadastrar serviços</a></button>
+                  <button class="btn btn-primary preview" type="button" ><a href="<?php echo base_url('editar'.$user); ?>">Edição de itens</a></button>
+                  <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('form'.$user); ?>">Cadastrar Itens</a></button>
+                  <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('form_servico'.$user); ?>">Cadastrar serviços</a></button>
               </div>
         </div>
         
@@ -95,7 +98,7 @@
             <div class="preview">
                 
                 
-                <h1>{{ user.nome_mercado }}</h1>
+                
                 <di>
             </div>
     </div>

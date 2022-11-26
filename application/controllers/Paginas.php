@@ -43,16 +43,7 @@ class Paginas extends CI_Controller {
     
     }
 //----------------------------------------------------------------------------------------
-public function admin(){
-    $id = $this->uri->segment(2); 
-    $data['titulo'] = "BNTH | cadastro de usuarios";
-    $data['description'] = "cadastro de usuários";
-   
-    $data['dono'] = $this->user->get_single($id);
-   
-    $this->load->view('admin', $data);
-    
-}
+
 //----------------------------------------------------------------------------------------
     public function cadastro_users()
     {

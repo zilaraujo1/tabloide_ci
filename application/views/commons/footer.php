@@ -1,5 +1,5 @@
 <footer class="container-fluid text-center">
-  <p><?php echo $dono->endereco; ?> </p>
+  <p>&copy TABLOIDE DIGITAL 2022</p>
 </footer>
 
 </body>
