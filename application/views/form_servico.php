@@ -1,18 +1,23 @@
-{% extends "base.html" %} {% block title %}Formulário{% endblock %}
 
-{% block content %}
-<div class="container">
+<?php $this->load->view('commons/header')  ?>
 
-<h3 align="Center">{{ dono.nome }}</h3>
+<main class="container" >
+  <h2><?php echo $titulo ?></h2>
+  <?php
+if ($msg = get_msg()) :
+    echo '<div class="msg-box">' . $msg . '</div>';
+endif;
+    
+?>
 
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="cadastro_servico" method="POST" enctype="multipart/form-data">
 
     
     <div class="form-row">
         <div class="form-group">
             <div class="col-md-6 ">
               
-            <input type="hidden" id="estab_fk" name="estab_fk" value="{{ dono.id }}">
+            <input type="text" id="estab_fk" name="estab_fk" value="<?php echo $dono->id; ?>">
             
             </div>
         </div>
@@ -92,7 +97,7 @@
 </div>
 
     <div id="cadastrar">
-        <button type="submit" class="btn btn-primary" onclick="return valida_serv()">Salvar</button>
+        <button type="submit" class="btn btn-primary" >Salvar</button>
     </div>
 
 </form>
@@ -101,5 +106,4 @@
 </a>
 </div>
 
-
-{% endblock %}
+<?php $this->load->view('commons/footer')  ?>

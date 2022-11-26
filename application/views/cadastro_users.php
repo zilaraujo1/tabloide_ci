@@ -1,40 +1,45 @@
 <?php $this->load->view('commons/header'); ?>
 
-<main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4">
+
+
 <div class="container">
-    <div class="page-header">
-        <h1>Cadastrar-se</h1>
-    </div>
-    <hr>
-  <div class="coluna col3">&nbsp;</div>
-        <div class="coluna col4">
-            <!--Informa a action e methofo do formulário (helper) da validação -->
-            <?php
-                if($formErrors):
-
-                    echo '<p>'.$formErrors .'</p>';
-                endif;
-                
-            
-                  echo form_open();
-                  echo form_label('Nome Completo:', 'nome');
-                  echo form_input('nome', set_value('nome'));
-                  echo form_label('RA:', 'ra');
-                  echo form_input('ra', set_value('ra'));
-                  echo form_label('Ano/Turma:', 'ano_turma');
-                  echo form_input('ano_turma', set_value('ano_turma'));
-                  echo form_label('Telefone:', 'telefone');
-                  echo form_input('telefone', set_value('telefone'));
-                  echo form_submit('cadastrar', 'cadastrar >>', array('class'=> 'botao')); 
-                  echo form_close();?>
-            <!--Informa a mensagem  da validação -->
-
-          
-
+<h2><?php echo $titulo ?></h2>
+  <?php
+if ($msg = get_msg()) :
+    echo '<div class="msg-box">' . $msg . '</div>';
+endif;
+    
+?>
+<form action="signup" method="POST">
+    
+    <div class="form-group">
+        <div class="col-md-6 offset-md-3">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="entre com um email válido">  
         </div>
-     
-
     </div>
+    <div class="form-group">
+        <div class="col-md-6 offset-md-3">
+        <label for="empresa">CNPJ</label>
+        <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o cnpj da empresa">  
+        </div>
+    </div>
+   
+ 
+    <div class="form-group">
+        <div class="col-md-6 offset-md-3">
+        <label for="password1">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="entre com sua senha">  
+         </div>
+    </div>
+    
+    <br/>
+    <div class="col-md-6 offset-md-3">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
 
 </div>
 
+
+<?php $this->load->view('commons/footer'); ?>

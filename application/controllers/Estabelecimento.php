@@ -1,15 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Controle_livros extends CI_Controller{
+class Estabelecimento extends CI_Controller{
 
     function __construct(){
         parent::__construct();
         //imports
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->load->model('options_model', 'option');
-        $this->load->model('clivros_model', 'post');
+        $this->load->model('estabelecimentos_model', 'estab');
+      //  $this->load->model('clivros_model', 'post');
     }
 
     public function index(){
@@ -29,30 +29,50 @@ class Controle_livros extends CI_Controller{
     public function cadastro(){
         //verifica se o usuário está logado
         //verifica_login();
-
+        echo "cadastrado";
         //regras de validação
-        $this->form_validation->set_rules('titulo', 'Título', 'trim|required');
-        $this->form_validation->set_rules('conteudo', 'Conteúdo', 'trim|required');
-        $this->form_validation->set_rules('data', 'Data', 'trim|required');
+        $this->form_validation->set_rules('nome', 'Nome', 'trim|required');
+        $this->form_validation->set_rules('endereco', 'Endereco', 'trim|required');
+        $this->form_validation->set_rules('telefone', 'Telefone', 'trim|required');
+        $this->form_validation->set_rules('hora_func', 'Hora_func', 'trim|required');
+        $this->form_validation->set_rules('descricao', 'Descricao', 'trim|required');
+      /*   $this->form_validation->set_rules('foto', 'Foto', 'trim|required');
+        $this->form_validation->set_rules('fotob', 'Fotob', 'trim|required');
+        $this->form_validation->set_rules('fotoc', 'Foto', 'trim|required');
+        $this->form_validation->set_rules('fotod', 'Foto', 'trim|required'); */
+        
         //verifica a validação
         if($this->form_validation->run() == FALSE):
             if(validation_errors()):
                 set_msg(validation_errors());
             endif;
         else:
-            $this->load->library('upload', config_upload());
-            if($this->upload->do_upload('imagem')):
+            $this->load->library('upload', config_upload()); //função do helper
+           
+            if($this->upload->do_upload('foto') ):
                 //upload foi efetuado
                 $dados_upload = $this->upload->data();
                 $dados_form = $this->input->post();
+          
 
-                var_dump($dados_upload);
-               $dados_insert['titulo'] = to_bd($dados_form['titulo']);
-               $dados_insert['conteudo'] = to_bd($dados_form['conteudo']);
-               $dados_insert['imagem'] = $dados_upload['file_name'];
-               $dados_insert['data'] = to_bd($dados_form['data']);
+              /*  
+                $dados_uploadb = $this->upload->data();
+                $dados_uploadc = $this->upload->data();
+                $dados_uploadd = $this->upload->data(); */
+
+               // var_dump($dados_upload);
+               $dados_insert['nome'] = to_bd($dados_form['nome']);
+               $dados_insert['endereco'] = to_bd($dados_form['endereco']);
+               $dados_insert['telefone'] = to_bd($dados_form['telefone']);
+               $dados_insert['hora_func'] = to_bd($dados_form['hora_func']);
+               $dados_insert['descricao'] = to_bd($dados_form['descricao']);
+               $dados_insert['user_fk'] = to_bd($dados_form['user_fk']);
+              
+               $dados_insert['foto'] = $dados_upload['file_name'];
+             
+              
                //salvar no banco de dados
-               if($id = $this->post->salvar($dados_insert)):
+               if($id = $this->estab->salvar($dados_insert)):
                     set_msg('<p>Post cadastrado com sucesso!</p>');
                     redirect('post/editar/'.$id, 'refresh');
                else:
@@ -74,7 +94,8 @@ class Controle_livros extends CI_Controller{
         $dados['titulo'] = 'BNTH - Retirada de livro';
         $dados['h2'] = 'Nova retirada de livro';
         $dados['tela'] = 'cadastrar'; //para carregar qual o tipo da view
-        $this->load->view('painel/controle_livros', $dados);
+        $this->load->view('home', $dados);
+        
     
     }
     public function excluir(){

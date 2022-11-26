@@ -8,6 +8,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['/'] = 'Paginas';
 $route['Estabelecimento'] = 'Estabelecimento';
+$route['Servico'] = 'Servico';
 
 $route['servico/(:num)'] = 'Paginas/servico';
 
@@ -16,8 +17,10 @@ $route['servico/(:num)'] = 'Paginas/servico';
 //$route['livro/(:num)'] = 'Paginas/videoaula/$1'; 
 //$route['livro'] = 'Livro';
 
-//$route['cadastro_users'] = 'Paginas/cadastro_users';
+$route['cadastro_users'] = 'Paginas/cadastro_users';
 $route['cadastro'] = 'Estabelecimento/cadastro';
+$route['cadastro_servico'] = 'Servico/cadastro_servico';
+$route['form_servico/(:num)'] = 'Servico/form_servico';
 
 //para gerar o página post (que será alimentada pelo banco de dados)
 //$route['controle_livros'] = 'Controle_livros';     // Requer parámetros 9caso não tenha, carrega a home)
@@ -27,4 +30,4 @@ $route['cadastro'] = 'Estabelecimento/cadastro';
 $route['login'] = 'Setup';
 $route['autentica_login'] = 'Setup/autentica_login';
 $route['admin'] = 'Setup/admin';
-//$route['painel'] = 'Setup/login';
+$route['signup'] = 'Paginas/signup';

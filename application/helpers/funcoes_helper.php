@@ -19,7 +19,7 @@ function get_msg($destroy=TRUE){
 endif;
 if(!function_exists('verifica_login')):
 	//verifica se o usuário está logado, caso negativa redireciona
-	function verifica_login($redirect='setup/login'){
+	function verifica_login($redirect='login'){
 		$ci = & get_instance();
 		if(	$ci->session->userdata('logged') != TRUE):
 			set_msg('<p>Acesso restrito! Faça login para continuar.</p>');
@@ -32,7 +32,16 @@ endif;
 
 if(!function_exists('config_upload')):
 	//define as configurações para upload de imagens/arquivos
-	function config_upload($path='./uploads/', $types='jpg|png', $size=512){
+	function config_upload($path='./uploads/logos/', $types='jpg|png', $size=1024){
+		$config['upload_path']= $path;
+		$config['allowed_types'] = $types;
+		$config['max_size'] = $size;
+		return $config;
+	}
+endif;
+if(!function_exists('config_upload_serv')):
+	//define as configurações para upload de imagens/arquivos
+	function config_upload_serv($path='./uploads/servicos/', $types='jpg|png', $size=1024){
 		$config['upload_path']= $path;
 		$config['allowed_types'] = $types;
 		$config['max_size'] = $size;

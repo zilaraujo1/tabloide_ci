@@ -9,6 +9,7 @@ class Paginas extends CI_Controller {
         parent::__construct();
         //carrega os módulos e classes
         $this->load->helper('url');
+        $this->load->library('form_validation');
         $this->load->model('usuarios_model', 'user');
         $this->load->model('servicos_model', 'serv');
         $this->load->model('estabelecimentos_model', 'estab');
@@ -47,41 +48,63 @@ class Paginas extends CI_Controller {
 //----------------------------------------------------------------------------------------
     public function cadastro_users()
     {
-    
-        $this->load->helper('url');
-        $this->load->library (array('form_validation', 'email'));
-        $this->load->helper('form');
-        $data['titulo'] = "BNTH | Controle de livros";
-       $data['description'] = "Exercício de exemplo do capítulo 5 do livro CodeIgniter da casa do código";
-        
-        // Regras de validação do formulário
-        $this->form_validation->set_rules('nome', 'Nome', 'trim |required| min_length[3]');
-        $this->form_validation->set_rules('email', 'Email', 'trim |required|valid_email');
-        $this->form_validation->set_rules('assunto', 'Assunto', 'trim |required|min_length[5]');
-        $this->form_validation->set_rules('mensagem', 'Mensagem', 'trim |required| min_length[30]');
-
-
-        if($this->form_validation->run() == FALSE){
-            $data['formErrors'] = validation_errors();
-
-        }else{
-            //para a chamada do método de envio de email
-            $dados_form = $this->input->post(); //recupera os dados do formulário
-           //debug: print_r($dados_form);
-           $this->email->from($dados_form['email'], $dados_form['nome']);
-           $this->email->to('jbeneditomedeiros@gmail.com');
-           $this->email->subject($dados_form['assunto']);
-           $this->email->message($dados_form['mensagem']);
-           if($this->email->send())
-                $data['formErrors'] = 'Email enviado com sucesso!';
-           else
-                $data['formErrors'] = 'Erro ao enviar email, tente novamnete!';
-
-        
-        }
-
+        $data['titulo']= "Cadastro de usuers";
         $this->load->view('cadastro_users', $data);
     
+    }
+    public function signup(){
+        
+       
+            // Regras de validação do formulário
+            $this->form_validation->set_rules('cnpj', 'Cnpj', 'trim |required| min_length[3]');
+            $this->form_validation->set_rules('email', 'Email', 'trim |required|valid_email');
+            $this->form_validation->set_rules('password', 'Password', 'trim |required|min_length[5]');
+           // $this->form_validation->set_rules('password2', 'passord', 'trim |required| min_length[30]');
+    
+    
+            if($this->form_validation->run() == FALSE){
+                $data['formErrors'] = validation_errors();
+    
+            }else{
+               // $dados_form = $this->input->post();
+                $email = $this->input->post('email');
+                $cnpj = $this->input->post('cnpj');
+                $password = $this->input->post('password');
+
+               $datos_form = array (
+                    "email"=>$email,
+                    "cnpj"=>$cnpj,
+                    "password"=>$password
+
+               ); 
+
+               // $dados_insert['email'] = $dados_form['email'];
+               // $dados_insert['cnpj'] = $dados_form['cnpj'];
+
+              //  $dados_insert['password'] = $dados_form['password'];
+                //salvar no banco de dados
+                if($id = $this->user->salvar($datos_form)):
+
+                    set_msg('<p>Dados cadastrado com sucesso!</p>');
+                    $estab_fk = $this->uri->segment(2); 
+                    $data['dono'] = $this->estab->get_single($estab_fk);
+                    $data['titulo'] = "Cadastro de serviços";
+                    redirect('Paginas/home', $data, 'refresh');
+                    
+                    
+                else:
+                    var_dump($dados_form);
+                    set_msg('<p> Erro! Dados não cadastrado.</p>');
+                    redirect('Paginas/admin', $data, 'refresh');
+           
+                endif;
+            }
+            $estab_fk = $this->uri->segment(2); 
+            $data['dono'] = $this->estab->get_single($estab_fk);
+            $data['titulo'] = "Cadastro de serviços";
+            redirect('Paginas/cadastro_users', $data, 'refresh');
+        
+
     }
 //-----------------------------------------------------------------------------------------
 

@@ -77,18 +77,7 @@ class Setup extends CI_Controller {
     $this->load->view('admin',$data);
     
 } 
-    public function signup(){
-        
-            $nome = $this->input->post("nome");
-            $cnpj = $this->input->post("cnpj");
-            $email = $this->input->post("email");
-
-
-            $this->user->salvar();
-            //TODO
-        
-       
-    }
+   
 
    
     public function logout(){

@@ -2,6 +2,12 @@
 
 <main class="container" >
   <h2><?php echo $titulo ?></h2>
+  <?php
+if ($msg = get_msg()) :
+    echo '<div class="msg-box">' . $msg . '</div>';
+endif;
+    
+?>
     <div class="row  m-5">
         <div class="col-sm-12 col-md-4 " >
             <form action="cadastro" method="POST" enctype="multipart/form-data">
@@ -19,7 +25,7 @@
                 </div>
                 <div class="form-group">
                     <label for="horario">Horário de atendimento</label>
-                    <input type="text" class="form-control" id="hora_fun" name="hora_func" placeholder="Horáro de atendimento">
+                    <input type="text" class="form-control" id="hora_func" name="hora_func" placeholder="Horáro de atendimento">
                 </div>
                 <div class="form-group">
                     <label for="descricao">Apresentação</label>
@@ -43,10 +49,10 @@
           </div>
                 <div class="form-group">
                     
-                    <input type="text" class="form-control" id="user" name="user" value="<?php echo $user; ?>">
+                    <input type="text" class="form-control" id="user" name="user_fk" value="<?php echo $user; ?>">
                 </div>
             
-                <button type="submit" class="btn btn-primary" onclick="return valida_estab()">Submit</button>
+                <button type="submit" class="btn btn-primary" >Submit</button>
               </form>
 
         </div>
@@ -75,9 +81,9 @@
               </table>
             
               <div class="col-md-12 ">
-                  <button class="btn btn-primary preview" type="button" ><a href="<?php echo base_url('editar'.$user); ?>">Edição de itens</a></button>
-                  <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('form'.$user); ?>">Cadastrar Itens</a></button>
-                  <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('form_servico'.$user); ?>">Cadastrar serviços</a></button>
+                  <button class="btn btn-primary preview" type="button" ><a href="<?php echo base_url('editar/'.$user); ?>">Edição de itens</a></button>
+                  <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('form/'.$user); ?>">Cadastrar Itens</a></button>
+                  <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('servico/'.$user); ?>">Cadastrar serviços</a></button>
               </div>
         </div>
         

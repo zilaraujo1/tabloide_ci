@@ -1,19 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Livro extends CI_Controller{
+class Servico extends CI_Controller{
 
     function __construct(){
         parent::__construct();
         //imports
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->load->model('options_model', 'option');
-        $this->load->model('livros_model', 'livro');
+        $this->load->model('servicos_model', 'serv');
+        $this->load->model('usuarios_model', 'user');
+        $this->load->model('estabelecimentos_model', 'estab');
     }
 
     public function index(){
-        redirect('livro/listar', 'refresh');
+
+        $estab_fk = $this->uri->segment(2); 
+        $data['dono'] = $this->estab->get_single($estab_fk);
+        $data['titulo'] = "Cadastro de serviços";
+        $this->load->view('form_servico', $data);
     }
     public function listar(){
         //verifica se o usuário está logado
@@ -27,29 +32,23 @@ class Livro extends CI_Controller{
         $dados['livros'] = $this->livro->get();
         $this->load->view('painel/livros', $dados);
     }
-    public function pesquisar(){
-        //verifica se o usuário está logado
-        verifica_login();
-
-        //carrega a view
-        $dados['titulo'] = 'BNTH - Listagem de livros';
-        
-        $dados['h2'] = 'Buscar livro';
-        $dados['tela'] = 'pesquisar'; //para carregar qual o tipo da view
-        $dados['livros'] = $this->livro->busca();
-        $this->load->view('painel/livros', $dados);
+    public function form_servico(){
+        $estab_fk = $this->uri->segment(2); 
+        $data['dono'] = $this->estab->get_single($estab_fk);
+        $data['titulo'] = "Cadastro de serviços";
+        $this->load->view('form_servico', $dados);
     }
-    public function cadastro_livros(){
+    public function cadastro_servico(){
         //verifica se o usuário está logado
-        verifica_login();
+       // verifica_login();
 
         //regras de validação
-        $this->form_validation->set_rules('titulo', 'Título', 'trim|required');
-        $this->form_validation->set_rules('autor', 'Autor', 'trim|required');
-        $this->form_validation->set_rules('editora', 'Editora', 'trim|required');
-        $this->form_validation->set_rules('genero', 'Genero', 'trim|required');
+        $this->form_validation->set_rules('tipo', 'Tipo', 'trim|required');
         $this->form_validation->set_rules('descricao', 'descricao', 'trim|required');
-        $this->form_validation->set_rules('unidade', 'unidade', 'trim|required');
+        $this->form_validation->set_rules('valor', 'Valor', 'trim|required');
+        $this->form_validation->set_rules('horario_func', 'Horario_func', 'trim|required');
+       // $this->form_validation->set_rules('foto', 'Foto', 'trim|required');
+        
      
         //verifica a validação
         if($this->form_validation->run() == FALSE):
@@ -57,28 +56,37 @@ class Livro extends CI_Controller{
                 set_msg(validation_errors());
             endif;
         else:
-            $this->load->library('upload', config_upload());
-            if($this->upload->do_upload('imagem')):
+            $this->load->library('upload', config_upload_serv());
+           
+            if($this->upload->do_upload('foto')):
                 //upload foi efetuado
                 $dados_upload = $this->upload->data();
+            
+            
                 $dados_form = $this->input->post();
 
-              //  var_dump($dados_upload);
-               $dados_insert['titulo'] = to_bd($dados_form['titulo']);
-               $dados_insert['autor'] = to_bd($dados_form['autor']);
-               $dados_insert['editora'] = to_bd($dados_form['editora']);
-               $dados_insert['genero'] = to_bd($dados_form['genero']);
-               $dados_insert['descricao'] = to_bd($dados_form['descricao']);
-               $dados_insert['unidade'] = to_bd($dados_form['unidade']);
-            
-
-               $dados_insert['imagem'] = $dados_upload['file_name'];
+                $dados_insert['tipo'] = to_bd($dados_form['tipo']);
+                $dados_insert['descricao'] = to_bd($dados_form['descricao']);
+                $dados_insert['valor'] = to_bd($dados_form['valor']);
+                $dados_insert['horario_func'] = to_bd($dados_form['horario_func']);
+                $dados_insert['foto'] = to_bd($dados_form['foto']);
+                $dados_insert['estab_fk'] = to_bd($dados_form['estab_fk']);
+                
+                
+                
+                
+                $dados_insert['foto'] = $dados_upload['file_name'];
+             
+                var_dump($dados_insert);
                //salvar no banco de dados
-               if($id = $this->livro->salvar($dados_insert)):
-                    set_msg('<p>Livro cadastrado com sucesso!</p>');
-                    redirect('livro/editar/'.$id, 'refresh');
+               if($id = $this->serv->salvar($dados_insert)):
+                    set_msg('<p>Dados cadastrado com sucesso!</p>');
+                    $estab_fk = $this->uri->segment(2); 
+                    $data['dono'] = $this->estab->get_single($estab_fk);
+                     $data['titulo'] = "Cadastro de serviços";
+                    redirect('Paginas/home', $data, 'refresh');
                else:
-                    set_msg('<p> Erro! Livro não foi cadastrado.</p>');
+                    set_msg('<p> Erro! Dados não cadastrado.</p>');
                endif;
 
             else:
@@ -93,10 +101,10 @@ class Livro extends CI_Controller{
 
         //carrega a view
 
-        $dados['titulo'] = 'BNTH - Cadastro de vídeoaulas';
-        $dados['h2'] = 'Cadastro de videoaulas';
-        $dados['tela'] = 'cadastrar'; //para carregar qual o tipo da view
-        $this->load->view('/cadastro_livros', $dados);
+        
+         $data['dono'] = $this->estab->get();
+        // $data['titulo'] = "Cadastro de serviços";
+         $this->load->view('home', $data);
     
     }
     public function excluir(){
