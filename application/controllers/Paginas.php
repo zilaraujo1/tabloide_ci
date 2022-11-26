@@ -13,6 +13,7 @@ class Paginas extends CI_Controller {
         $this->load->model('usuarios_model', 'user');
         $this->load->model('servicos_model', 'serv');
         $this->load->model('estabelecimentos_model', 'estab');
+        $this->load->model('imagens_model', 'foto');
        // $this->output->cache(1440); //corrensponde a 24 horas até o  cache ser atualizado
         
     }
@@ -20,6 +21,7 @@ class Paginas extends CI_Controller {
     public function index()
     {
      //debug:  echo 'página home';
+     $data['foto'] = $this->estab->get();
      $data['dono'] = $this->estab->get();
      $data['titulo'] = "BNTH | Home";
     $data['desc'] = "Exercício de exemplo do capítulo 5 do livro Codeigniter";
@@ -34,7 +36,7 @@ class Paginas extends CI_Controller {
         $estab_fk = $this->uri->segment(2); 
         $data['titulo'] = "BNTH | A Empresa";
         $data['description'] = "Informações sobre a empresa";
-        $data['dono'] = $this->estab->get_single($estab_fk);
+        $data['dono'] = $this->foto->get_single($estab_fk);
         $data['serv'] = $this->serv->get_estab($estab_fk);
 
     
@@ -52,11 +54,11 @@ class Paginas extends CI_Controller {
         $this->load->view('cadastro_users', $data);
     
     }
-    public function signup(){
-        
+    public function salva_user(){
+        echo "OK está chegaando";
        
-            // Regras de validação do formulário
-            $this->form_validation->set_rules('cnpj', 'Cnpj', 'trim |required| min_length[3]');
+           // Regras de validação do formulário
+          /*  $this->form_validation->set_rules('cnpj', 'Cnpj', 'trim |required| min_length[3]');
             $this->form_validation->set_rules('email', 'Email', 'trim |required|valid_email');
             $this->form_validation->set_rules('password', 'Password', 'trim |required|min_length[5]');
            // $this->form_validation->set_rules('password2', 'passord', 'trim |required| min_length[30]');
@@ -65,47 +67,46 @@ class Paginas extends CI_Controller {
             if($this->form_validation->run() == FALSE){
                 $data['formErrors'] = validation_errors();
     
-            }else{
+            }else{ */
                // $dados_form = $this->input->post();
                 $email = $this->input->post('email');
                 $cnpj = $this->input->post('cnpj');
                 $password = $this->input->post('password');
 
-               $datos_form = array (
-                    "email"=>$email,
+               $dados_form = array (
                     "cnpj"=>$cnpj,
+                    "email"=>$email,
                     "password"=>$password
 
                ); 
+               var_dump($email);
 
                // $dados_insert['email'] = $dados_form['email'];
                // $dados_insert['cnpj'] = $dados_form['cnpj'];
 
               //  $dados_insert['password'] = $dados_form['password'];
                 //salvar no banco de dados
-                if($id = $this->user->salvar($datos_form)):
+               if($id = $this->user->salvar($dados_form)):
 
                     set_msg('<p>Dados cadastrado com sucesso!</p>');
                     $estab_fk = $this->uri->segment(2); 
                     $data['dono'] = $this->estab->get_single($estab_fk);
                     $data['titulo'] = "Cadastro de serviços";
-                    redirect('Paginas/home', $data, 'refresh');
+                    redirect('/', $data, 'refresh');
                     
                     
-                else:
-                    var_dump($dados_form);
+                 else:
                     set_msg('<p> Erro! Dados não cadastrado.</p>');
                     redirect('Paginas/admin', $data, 'refresh');
            
                 endif;
-            }
-            $estab_fk = $this->uri->segment(2); 
-            $data['dono'] = $this->estab->get_single($estab_fk);
-            $data['titulo'] = "Cadastro de serviços";
-            redirect('Paginas/cadastro_users', $data, 'refresh');
-        
-
-    }
+            
+                
+           // }
+          
+            redirect('Paginas/cadastro_users', 'refresh'); 
+    
+} 
 //-----------------------------------------------------------------------------------------
 
     public function cadastro_livros()

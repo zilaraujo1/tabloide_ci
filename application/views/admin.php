@@ -32,27 +32,22 @@ endif;
                     <textarea style="height:150px ;" class="form-control" id="descricao" name="descricao"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="imagem">Foto do estabelecimento</label>
+                    <label for="imagem">Logo marca do estabelecimento</label>
                     <input type="file" class="form-control" id="foto" name="foto">
                 </div>
                 <div class="form-group">
-                  <label for="imagem">Foto do estabelecimento</label>
-                  <input type="file" class="form-control" id="fotob" name="fotob">
+                  <label for="imagem">Selecione fotos do estabelecimento</label>
+                  <input type="file" class="form-control" id="fotob" name="upload_fotos[]" multiple="multiple" />
               </div>
-              <div class="form-group">
-                <label for="imagem">Foto do estabelecimento</label>
-                <input type="file" class="form-control" id="fotoc" name="fotoc">
-            </div>
-            <div class="form-group">
-              <label for="imagem">Foto do estabelecimento</label>
-              <input type="file" class="form-control" id="fotod" name="fotod">
-          </div>
+             
+           
+        
                 <div class="form-group">
                     
                     <input type="text" class="form-control" id="user" name="user_fk" value="<?php echo $user; ?>">
                 </div>
             
-                <button type="submit" class="btn btn-primary" >Submit</button>
+                <button type="submit" class="btn btn-primary" name="salvar" >Submit</button>
               </form>
 
         </div>
@@ -67,6 +62,7 @@ endif;
                   </tr>
                 </thead>
                 <tbody>
+              
                 <?php foreach($estab as $result): ?>
                   <tr>
                     <th scope="row">
@@ -76,7 +72,7 @@ endif;
                  
                   </tr>
                <?php endforeach; ?>
-                 
+             
                 </tbody>
               </table>
             

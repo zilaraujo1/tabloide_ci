@@ -10,18 +10,18 @@ if ($msg = get_msg()) :
 endif;
     
 ?>
-<form action="signup" method="POST">
+<form action="<?=base_url('Paginas/salva_user')?>" method="POST">
     
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="entre com um email válido">  
-        </div>
-    </div>
     <div class="form-group">
         <div class="col-md-6 offset-md-3">
         <label for="empresa">CNPJ</label>
         <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o cnpj da empresa">  
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6 offset-md-3">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="entre com um email válido">  
         </div>
     </div>
    

@@ -9,6 +9,7 @@ class Estabelecimento extends CI_Controller{
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->model('estabelecimentos_model', 'estab');
+        $this->load->model('imagens_model', 'fotos');
       //  $this->load->model('clivros_model', 'post');
     }
 
@@ -36,10 +37,8 @@ class Estabelecimento extends CI_Controller{
         $this->form_validation->set_rules('telefone', 'Telefone', 'trim|required');
         $this->form_validation->set_rules('hora_func', 'Hora_func', 'trim|required');
         $this->form_validation->set_rules('descricao', 'Descricao', 'trim|required');
-      /*   $this->form_validation->set_rules('foto', 'Foto', 'trim|required');
-        $this->form_validation->set_rules('fotob', 'Fotob', 'trim|required');
-        $this->form_validation->set_rules('fotoc', 'Foto', 'trim|required');
-        $this->form_validation->set_rules('fotod', 'Foto', 'trim|required'); */
+        
+      
         
         //verifica a validação
         if($this->form_validation->run() == FALSE):
@@ -47,18 +46,29 @@ class Estabelecimento extends CI_Controller{
                 set_msg(validation_errors());
             endif;
         else:
-            $this->load->library('upload', config_upload()); //função do helper
-           
-            if($this->upload->do_upload('foto') ):
+            
+            $arquivos_permitidos = ['jpg','jpeg','png'];
+            $arquivos = $_FILES['upload_fotos'];
+            $nomes = $arquivos['name'];
+
+            $dados_user = $this->input->post('user_fk');
+            for($i=0; $i < count($nomes); $i++):
+                $extensao = explode('.', $nomes[$i]);
+                $extensao = end($extensao);
+                $nomes[$i] = rand().'-'.$nomes[$i];
+                if(in_array($extensao, $arquivos_permitidos)):
+                    $query = $this->db->query("insert into imagens (upload_fotos, estab_fk) values('$nomes[$i]','$dados_user')");
+                   $mover = move_uploaded_file($_FILES['upload_fotos']['tmp_name'][$i], './uploads/logos/'.$nomes[$i]);
+                endif;
+            endfor;
+            $this->load->library('upload', config_upload());
+            
                 //upload foi efetuado
+                $this->upload->do_upload('foto');
                 $dados_upload = $this->upload->data();
                 $dados_form = $this->input->post();
           
 
-              /*  
-                $dados_uploadb = $this->upload->data();
-                $dados_uploadc = $this->upload->data();
-                $dados_uploadd = $this->upload->data(); */
 
                // var_dump($dados_upload);
                $dados_insert['nome'] = to_bd($dados_form['nome']);
@@ -74,18 +84,19 @@ class Estabelecimento extends CI_Controller{
                //salvar no banco de dados
                if($id = $this->estab->salvar($dados_insert)):
                     set_msg('<p>Post cadastrado com sucesso!</p>');
-                    redirect('post/editar/'.$id, 'refresh');
+                    $data['dono'] = $this->estab->get();
+                    redirect('Paginas', 'refresh', $data);
                else:
                     set_msg('<p> Erro! Post não foi cadastrado.</p>');
                endif;
 
-            else:
+            
                 //erro no upload
                 $msg = $this->upload->display_errors();
                 $msg .= '<p>São permitidas arquivos JPG e PNG de até 512KB.</p>';
                 set_msg($msg);
             endif;
-        endif;
+        
 
 
 

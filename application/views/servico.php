@@ -11,7 +11,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="<?php echo base_url('uploads/logos/'.$dono->foto);?>" alt="Foto">
+        <img src="<?php echo base_url('uploads/logos/'.$dono->upload_fotos);?>" alt="Foto">
         <div class="carousel-caption">
         </div>
       </div>
