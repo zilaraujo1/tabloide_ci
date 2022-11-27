@@ -4,7 +4,7 @@
   <h2><?php echo $titulo ?></h2>
   <?php
 if ($msg = get_msg()) :
-    echo '<div class="msg-box">' . $msg . '</div>';
+    echo '<div class="msg-box alert alert-light">' . $msg . '</div>';
 endif;
     
 ?>
@@ -44,7 +44,7 @@ endif;
         
                 <div class="form-group">
                     
-                    <input type="text" class="form-control" id="user" name="user_fk" value="<?php echo $user; ?>">
+                    <input type="hidden" class="form-control" id="user" name="user_fk" value="<?php echo $user; ?>">
                 </div>
             
                 <button type="submit" class="btn btn-primary" name="salvar" >Submit</button>

@@ -17,14 +17,14 @@
 </head>
 <body>
 
+  <div class="container-fluid">
 <nav class="navbar navbar-inverse">
   <?php
 if ($msg = get_msg()) :
-    echo '<div class="msg-box">' . $msg . '</div>';
+    echo '<div class="msg-box alert alert-success">' . $msg . '</div>';
 endif;
     
 ?>
-  <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
@@ -79,7 +79,7 @@ endif;
 	
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="<?php echo base_url('/cadastro_users'); ?>"><span class="glyphicon glyphicon-log-in"></span>CADASTRO</a></li>
+        <li><a href="<?php echo base_url('/cadastro_users'); ?>"><span class="glyphicon glyphicon-log-in"></span>CADASTRE-SE</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo base_url('/login'); ?>"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
@@ -265,7 +265,7 @@ endif;
           <?php foreach ($foto as $donos):?>
     
     <div class="col-sm-2">
-      <a href="<?php echo base_url('servico/'. $donos->id );?>">
+      <a href="<?php echo base_url('servico/'. $donos->user_fk );?>">
       <img src="<?php echo base_url('uploads/logos/'.$donos->foto); ?>" class="img-responsive" style="width:100%" alt="Image">
       <p><?php echo $donos->nome ?></p></a>
     </div>

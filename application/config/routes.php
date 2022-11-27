@@ -30,4 +30,5 @@ $route['form_servico/(:num)'] = 'Servico/form_servico/$1';
 $route['login'] = 'Setup';
 $route['autentica_login'] = 'Setup/autentica_login';
 $route['admin'] = 'Setup/admin';
+$route['logout'] = 'Setup/logout';
 $route['salva_user'] = 'Paginas/salva_user';

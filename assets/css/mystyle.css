@@ -16,8 +16,8 @@
   form>input{
     width: 200px;
   }
-  img{
-    width: 200px;
+  .img-serv{
+    width: 400px;
   }
 
   /* Oculte o texto do carrossel quando a tela tiver menos de 600 pixels de largura */

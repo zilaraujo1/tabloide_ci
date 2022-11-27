@@ -2,14 +2,14 @@
 
 
 <title><?php echo $titulo ; ?></title>
+
+<div class="container">
 <?php
 if ($msg = get_msg()) :
-    echo '<div class="msg-box">' . $msg . '</div>';
+    echo '<div class="msg-box alert alert-danger">' . $msg . '</div>';
 endif;
     
 ?>
-
-<div class="container">
 <form action="autentica_login" method="POST">
     <h3>Login</h3>
     

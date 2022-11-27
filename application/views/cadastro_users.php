@@ -6,7 +6,7 @@
 <h2><?php echo $titulo ?></h2>
   <?php
 if ($msg = get_msg()) :
-    echo '<div class="msg-box">' . $msg . '</div>';
+    echo '<div class="msg-box alert alert-danger">' . $msg . '</div>';
 endif;
     
 ?>

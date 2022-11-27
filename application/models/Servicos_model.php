@@ -43,17 +43,7 @@ class Servicos_model extends CI_Model {
             endif;
         endif;
     }
-    public function get_single($id=0){
-        $this->db->where('id', $id);
-        $query = $this->db->get('servicos', 1);
-        if($query->num_rows() == 1):
-            $row = $query->row();
-            return $row;
-        else:
-            return NULL;
-        endif;
-    }
-    public function get_estab($estab_fk=0){
+    public function get_single($estab_fk=0, $limit=0){
         $this->db->where('estab_fk', $estab_fk);
         $query = $this->db->get('servicos', 1);
         if($query->num_rows() == 1):
@@ -62,6 +52,12 @@ class Servicos_model extends CI_Model {
         else:
             return NULL;
         endif;
+    }
+    public function get_estab($estab_fk){
+        $sql = "select * from servicos where estab_fk =?";
+       // $this->db->where('estab_fk', $estab_fk);
+        $query = $this->db->query($sql,$estab_fk);
+       return $query->result();
     }
 
     public function excluir($id=0){

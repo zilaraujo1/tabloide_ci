@@ -83,9 +83,9 @@ class Estabelecimento extends CI_Controller{
               
                //salvar no banco de dados
                if($id = $this->estab->salvar($dados_insert)):
-                    set_msg('<p>Post cadastrado com sucesso!</p>');
+                    set_msg('<p>Cadastrado realizado com sucesso!</p>');
                     $data['dono'] = $this->estab->get();
-                    redirect('Paginas', 'refresh', $data);
+                    redirect('admin', 'refresh', $data);
                else:
                     set_msg('<p> Erro! Post não foi cadastrado.</p>');
                endif;
@@ -102,10 +102,9 @@ class Estabelecimento extends CI_Controller{
 
         //carrega a view
 
-        $dados['titulo'] = 'BNTH - Retirada de livro';
-        $dados['h2'] = 'Nova retirada de livro';
-        $dados['tela'] = 'cadastrar'; //para carregar qual o tipo da view
-        $this->load->view('home', $dados);
+        $dados['titulo'] = 'Cadastro da empresa';
+    
+        $this->load->view('admin', $dados);
         
     
     }

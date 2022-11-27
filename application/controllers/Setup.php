@@ -52,7 +52,7 @@ class Setup extends CI_Controller {
                     redirect('admin', $data);
                 else:
                     //senha incorreta
-                    set_msg('<p> Senha incorreta!</p>');
+                    set_msg('<p> Cadastro inexistente! Verifique se os dados estão corretos!</p>');
                     $dados['titulo'] = "login";
                     $this->load->view('painel/login', $dados);
                 endif;
@@ -86,7 +86,7 @@ class Setup extends CI_Controller {
         $this->session->unset_userdata('user_login');
         $this->session->unset_userdata('user_email');
         set_msg('<p> Você saiu do sistema!</p>');
-        redirect('setup/login', 'reflesh');
+        redirect('login', 'reflesh');
     }
 
 }
