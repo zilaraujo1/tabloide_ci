@@ -10,7 +10,7 @@ $route['/'] = 'Paginas';
 $route['Estabelecimento'] = 'Estabelecimento';
 $route['Servico'] = 'Servico';
 
-$route['servico/(:num)'] = 'Paginas/servico';
+$route['servico/(:num)'] = 'Paginas/servico/$1';
 
 //$route['listar'] = 'Livro/listar';     // Requer parámetros 9caso não tenha, carrega a home)
 //$route['pesquisar'] = 'Livro/pesquisar';
@@ -20,7 +20,7 @@ $route['servico/(:num)'] = 'Paginas/servico';
 $route['cadastro_users'] = 'Paginas/cadastro_users';
 $route['cadastro'] = 'Estabelecimento/cadastro';
 $route['cadastro_servico'] = 'Servico/cadastro_servico';
-$route['form_servico/(:num)'] = 'Servico/form_servico';
+$route['form_servico/(:num)'] = 'Servico/form_servico/$1';
 
 //para gerar o página post (que será alimentada pelo banco de dados)
 //$route['controle_livros'] = 'Controle_livros';     // Requer parámetros 9caso não tenha, carrega a home)

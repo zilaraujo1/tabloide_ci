@@ -46,15 +46,18 @@ class Imagens_model extends CI_Model {
     }
 
     public function get_single($estab_fk=0){
-        $this->db->where('estab_fk', $estab_fk); // retorna dados pelo id escolhido
-        $query = $this->db->get('imagens', 1);
-        if($query->num_rows() == 1):
+        $sql = "select upload_fotos from imagens where estab_fk =".$estab_fk.";";
+        $query= $this->db->query($sql);
+       // $this->db->get('imagens','id','estab_fk', $estab_fk);
+      //  $query = $this->db->get('imagens', 1);
+        if($query->num_rows()>1):
             $row = $query->row();
             return $row;
         else:
             return NULL;
         endif;
     }
+ 
 
     
 

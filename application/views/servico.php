@@ -9,29 +9,21 @@
     </ol>
 
     <!-- Wrapper for slides -->
+ <?php echo print_r($foto) ?>
+
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="<?php echo base_url('uploads/logos/'.$dono->upload_fotos);?>" alt="Foto">
+        <img src="<?php echo base_url('uploads/logos/'.$foto) ?>" alt="Foto">
         <div class="carousel-caption">
+          </div>
+ 
+        
         </div>
-      </div>
-      
-
-      <div class="item">
-        <img src="<?php echo base_url('uploads/logos/'.$dono->fotob);?>" alt="sem FOTO">
-        <div class="carousel-caption">
-        </div> 
-
-       </div>
-    
+     
+  
+        
        <div class="item">
-        <img src="<?php echo base_url('uploads/logos/'.$dono->fotoc);?>" alt="Image">
-        <div class="carousel-caption">
-        </div>      
-       
-       </div>
-       <div class="item">
-        <img src="<?php echo base_url('uploads/logos/'.$dono->fotod);?>" alt="Image">
+        <img src="<?php echo base_url('uploads/logos/'.$dono->foto);?>" alt="Image">
         <div class="carousel-caption">
         </div>  
     

@@ -14,11 +14,12 @@ class Servico extends CI_Controller{
     }
 
     public function index(){
+        
 
-        $estab_fk = $this->uri->segment(2); 
+        $estab_fk = $this->uri->segment(3); 
         $data['dono'] = $this->estab->get_single($estab_fk);
         $data['titulo'] = "Cadastro de serviços";
-        $this->load->view('form_servico', $data);
+        $this->load->view('Pagina/servico', $data);
     }
     public function listar(){
         //verifica se o usuário está logado
@@ -32,12 +33,28 @@ class Servico extends CI_Controller{
         $dados['livros'] = $this->livro->get();
         $this->load->view('painel/livros', $dados);
     }
+//---------------------------------------------------------------------------------------
     public function form_servico(){
-        $estab_fk = $this->uri->segment(2); 
-        $data['dono'] = $this->estab->get_single($estab_fk);
+       /* if(($estab_fk = $this->uri->segment(3))> 0): //segment(2)= refêre-se a posição da rota chamada pós barra da url  no navegador
+            if($estab= $this->estab->get_single($estab_fk)): // método da model
+                $dados['dono'] = $estab;
+              //  $dados_update['id'] = $$descLivro->id;
+            else:
+                set_msg('<p>usuário inexistente!.</p>');
+                redirect('form_servico', 'refresh');
+            endif;
+        else:
+            set_msg('<p>Você deve indicar um usuário para continuar!</P>');
+            redirect('servico', 'refresh');
+        endif;
+       */
+        
+         $user_fk= $this->uri->segment(2); 
+        $data['dono']= $this->estab->get_single($user_fk);
         $data['titulo'] = "Cadastro de serviços";
-        $this->load->view('form_servico', $dados);
+        $this->load->view('form_servico', $data);
     }
+//-------------------------------------------------------------------------------
     public function cadastro_servico(){
         //verifica se o usuário está logado
        // verifica_login();
@@ -47,7 +64,7 @@ class Servico extends CI_Controller{
         $this->form_validation->set_rules('descricao', 'descricao', 'trim|required');
         $this->form_validation->set_rules('valor', 'Valor', 'trim|required');
         $this->form_validation->set_rules('horario_func', 'Horario_func', 'trim|required');
-       // $this->form_validation->set_rules('foto', 'Foto', 'trim|required');
+        //$this->form_validation->set_rules('foto', 'Foto', 'trim|required');
         
      
         //verifica a validação
@@ -69,7 +86,7 @@ class Servico extends CI_Controller{
                 $dados_insert['descricao'] = to_bd($dados_form['descricao']);
                 $dados_insert['valor'] = to_bd($dados_form['valor']);
                 $dados_insert['horario_func'] = to_bd($dados_form['horario_func']);
-                $dados_insert['foto'] = to_bd($dados_form['foto']);
+              //  $dados_insert['foto'] = to_bd($dados_form['foto']);
                 $dados_insert['estab_fk'] = to_bd($dados_form['estab_fk']);
                 
                 
@@ -84,9 +101,10 @@ class Servico extends CI_Controller{
                     $estab_fk = $this->uri->segment(2); 
                     $data['dono'] = $this->estab->get_single($estab_fk);
                      $data['titulo'] = "Cadastro de serviços";
-                    redirect('Paginas/home', $data, 'refresh');
+                    redirect('/', $data, 'refresh');
                else:
                     set_msg('<p> Erro! Dados não cadastrado.</p>');
+                    redirect('Servico/form_servico', $data, 'refresh');
                endif;
 
             else:

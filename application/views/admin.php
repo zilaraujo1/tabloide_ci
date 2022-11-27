@@ -62,8 +62,9 @@ endif;
                   </tr>
                 </thead>
                 <tbody>
-              
-                <?php foreach($estab as $result): ?>
+                <?php   if (isset($foto) && sizeof($foto) > 0):  ?>  
+                     <?php foreach ($estab as $result):?>
+                
                   <tr>
                     <th scope="row">
                     <td><?php echo $result->nome; ?></td>
@@ -71,7 +72,12 @@ endif;
                     <td><?php echo $result->telefone; ?></td>
                  
                   </tr>
-               <?php endforeach; ?>
+                <!------------------------ -->    
+              <?php endforeach; ?>
+                            </table>
+                <?php else: ?>
+                    Sem novos comércios cadastrados
+                  <?php endif; ?>
              
                 </tbody>
               </table>
@@ -79,7 +85,7 @@ endif;
               <div class="col-md-12 ">
                   <button class="btn btn-primary preview" type="button" ><a href="<?php echo base_url('editar/'.$user); ?>">Edição de itens</a></button>
                   <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('form/'.$user); ?>">Cadastrar Itens</a></button>
-                  <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('servico/'.$user); ?>">Cadastrar serviços</a></button>
+                  <button class="btn btn-success preview" type="button" ><a href="<?php echo base_url('form_servico/'.$user); ?>">Cadastrar serviços</a></button>
               </div>
         </div>
         

@@ -44,8 +44,8 @@ class Estabelecimentos_model extends CI_Model {
         endif;
     }
 
-    public function get_single($id=0){
-        $this->db->where('id', $id); // retorna dados pelo id escolhido
+    public function get_single($user_fk=0){
+        $this->db->where('user_fk', $user_fk); // retorna dados pelo id escolhido
         $query = $this->db->get('estabelecimentos', 1);
         if($query->num_rows() == 1):
             $row = $query->row();

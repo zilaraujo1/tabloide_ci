@@ -106,55 +106,55 @@ endif;
 
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/logoanuncio.png');?>" alt="Image">
           <div class="carousel-caption">
           </div>      
         </div>
 
         <div class="item">
-          <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/dehliciaslogo2.png');?>" alt="Image">
           <div class="carousel-caption">
           </div>  
 
           </div> 
           <div class="item">
-          <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/frentedehlicias.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div> 
 
           </div> 
           <div class="item">
-          <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/logo.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>   
  	  
           </div> 
           <div class="item">
-          <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/frente.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>   
 
           </div> 
           <div class="item">
-          <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/studiotatu.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>   
 
           </div> 
           <div class="item">
-          <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/Dashtattoo.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>  
 
           </div> 
           <div class="item">
-            <a href="/servicos/{{ user.id }}"><img src="{{ url_for('static', filename='image/home/logo2.jpg')}}" alt="Image"></a>
+            <a href="/servicos/{{ user.id }}"><img src="<?php echo base_url('assets/img/home/logo2.jpg');?>" alt="Image"></a>
           <div class="carousel-caption">
           </div>  
 
           </div> 
           <div class="item">
-          <img src="{{ url_for('static', filename='image/home/logo4.jpg')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/logo4.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>  
 
@@ -224,11 +224,11 @@ endif;
   <br>
   <div class="row">
     <div class="col-sm-3">
-      <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" class="img-responsive" style="width:100%" alt="Image">
+      <img src="<?php echo base_url('assets/img/home/bolocopo.jpg');?>" class="img-responsive" style="width:100%" alt="Image">
       <p>Bolo no Copo - R$ 5,00</p>
     </div>
     <div class="col-sm-3"> 
-      <img src="<?php echo base_url('uploads/logos/kelly.jpg');?>" class="img-responsive" style="width:100%" alt="Image">
+      <img src="<?php echo base_url('assets/img/home/empadas.jpg');?>" class="img-responsive" style="width:100%" alt="Image">
       <p>Empadas - R$ 3,00</p>    
     </div>
     <div class="col-sm-3">
@@ -261,13 +261,20 @@ endif;
   <b><h3>OUTROS COMÉRCIOS E SERVIÇOS</h3><b>
   <br>
   <div class="row">
-    <?php foreach($foto as $donos): ?>
+  <?php   if (isset($foto) && sizeof($foto) > 0):  ?>  
+          <?php foreach ($foto as $donos):?>
+    
     <div class="col-sm-2">
       <a href="<?php echo base_url('servico/'. $donos->id );?>">
       <img src="<?php echo base_url('uploads/logos/'.$donos->foto); ?>" class="img-responsive" style="width:100%" alt="Image">
       <p><?php echo $donos->nome ?></p></a>
     </div>
+    <!------------------------ -->    
     <?php endforeach; ?>
+                  </table>
+                  <?php else: ?>
+                    Sem novos comércios
+        <?php endif; ?>
    <!-- <div class="col-sm-2"> 
       <a href="/servicos/{{ 3 }}"><img src="{{ url_for('static', filename='image/home/atelierdiego.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
       <p>Atelier Diego Amoroso</p></a>    

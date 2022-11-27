@@ -10,19 +10,26 @@ endif;
     
 ?>
 
-<form action="cadastro_servico" method="POST" enctype="multipart/form-data">
-
+<form action="<?php echo base_url('Servico/cadastro_servico'); ?>" method="POST" enctype="multipart/form-data">
+ 
+<?php   if (isset($dono)):  ?>  
+          
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="col-md-6 ">
+                        <input type="text" id="estab_fk" name="estab_fk" value="<?php echo $dono->user_fk; ?>">
+                        
+                    </div>
+                </div>
+                
+    <!------------------------ -->    
     
-    <div class="form-row">
-        <div class="form-group">
-            <div class="col-md-6 ">
-              
-            <input type="text" id="estab_fk" name="estab_fk" value="<?php echo $dono->id; ?>">
-            
-            </div>
-        </div>
+                  </table>
+                  <?php else: ?>
+                    Sem dono
+        <?php endif; ?>
         
-      
+        
         <div class="form-group">
             <div class="col-md-6 ">
                 <label for="tipo_item">Tipo de Serviço:</label>
@@ -94,16 +101,15 @@ endif;
         </div>
     </div>
 
+    <br><br>
 </div>
-
-    <div id="cadastrar">
+<div id="cadastrar">
         <button type="submit" class="btn btn-primary" >Salvar</button>
     </div>
 
 </form>
-<a href="/">
-<button class="btn btn-success preview" type="button" >Preview/Home</button>
-</a>
+
+
 </div>
 
 <?php $this->load->view('commons/footer')  ?>

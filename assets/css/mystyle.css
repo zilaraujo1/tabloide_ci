@@ -1,5 +1,6 @@
   /* Adicione uma cor de fundo cinza e algum preenchimento ao rodapé */
   footer {
+  margin-top: auto;
 	background-color: #FAEBD7;
 	padding: 25px;
   }
@@ -7,6 +8,16 @@
   .carousel-inner img {
 	width: 25%; /* Set width to 25% */
 	min-height: 200px;
+  }
+  form{
+    margin-bottom: 200px;
+    
+  }
+  form>input{
+    width: 200px;
+  }
+  img{
+    width: 200px;
   }
 
   /* Oculte o texto do carrossel quando a tela tiver menos de 600 pixels de largura */
