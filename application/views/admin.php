@@ -62,7 +62,7 @@ endif;
                   </tr>
                 </thead>
                 <tbody>
-                <?php   if (isset($foto) && sizeof($foto) > 0):  ?>  
+                <?php   if (isset($estab) && sizeof($estab) > 0):  ?>  
                      <?php foreach ($estab as $result):?>
                 
                   <tr>

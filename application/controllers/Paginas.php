@@ -69,7 +69,7 @@ class Paginas extends CI_Controller {
                 $data['formErrors'] = validation_errors();
     
             }else{ */
-               // $dados_form = $this->input->post();
+               
                 $email = $this->input->post('email');
                 $cnpj = $this->input->post('cnpj');
                 $password = $this->input->post('password');

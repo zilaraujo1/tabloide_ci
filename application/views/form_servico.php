@@ -17,7 +17,7 @@ endif;
             <div class="form-row">
                 <div class="form-group">
                     <div class="col-md-6 ">
-                        <input type="text" id="estab_fk" name="estab_fk" value="<?php echo $dono->user_fk; ?>">
+                        <input type="hidden" id="estab_fk" name="estab_fk" value="<?php echo $dono->user_fk; ?>">
                         
                     </div>
                 </div>
@@ -25,8 +25,10 @@ endif;
     <!------------------------ -->    
     
                   </table>
-                  <?php else: ?>
-                    Sem dono
+        <?php else: 
+            echo '<div> Sem registro </p>'
+            ?>
+            
         <?php endif; ?>
         
         
@@ -79,28 +81,9 @@ endif;
             <input id="foto" type="file" class="form-control"  name="foto">
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-6 ">
 
-            <label for="data-final-promo">Foto 2:</label>
-            <input id="fotob" type="file" class="form-control"  name="fotob">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-6 ">
 
-            <label for="data-final-promo">Foto 3:</label>
-            <input id="fotoc" type="file" class="form-control"  name="fotoc">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-6 ">
-
-            <label for="data-final-promo">Foto 4:</label>
-            <input id="fotod" type="file" class="form-control"  name="fotod">
-        </div>
-    </div>
-
+  
     <br><br>
 </div>
 <div id="cadastrar">
