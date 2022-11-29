@@ -7,32 +7,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/mystyle.css') ?>">
+  
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    /* Adicione uma cor de fundo cinza e algum preenchimento ao rodapé */
-    footer {
-      background-color: #FAEBD7;
-      padding: 25px;
-    }
-
-    .carousel-inner img {
-      width: 25%; /* Set width to 25% */
-      min-height: 200px;
-    }
-
-    /* Oculte o texto do carrossel quando a tela tiver menos de 600 pixels de largura */
-    @media (max-width: 600px) {
-      .carousel-caption {
-        display: none; 
-      }
-    }
-  </style>
+ 
+ 
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
   <div class="container-fluid">
+<nav class="navbar navbar-inverse">
+  <?php
+if ($msg = get_msg()) :
+    echo '<div class="msg-box alert alert-success">' . $msg . '</div>';
+endif;
+    
+?>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
@@ -43,7 +35,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">HOME</a></li>
+        <li class="active"><a href="<?php echo base_url('/'); ?>">HOME</a></li>
         
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">COMÉRCIOS<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -87,13 +79,13 @@
 	
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/cadastro"><span class="glyphicon glyphicon-log-in"></span>CADASTRO</a></li>
+        <li><a href="<?php echo base_url('/cadastro_users'); ?>"><span class="glyphicon glyphicon-log-in"></span>CADASTRE-SE</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+        <li><a href="<?php echo base_url('/login'); ?>"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
+        <li><a href="<?php echo base_url('/logout'); ?>"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
       </ul>
     </div>
   </div>
@@ -110,57 +102,59 @@
       </ol>
 
       <!-- Wrapper for slides -->
+      
+
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img src="{{ url_for('static', filename='image/home/logoanuncio.png')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/logoanuncio.png');?>" alt="Image">
           <div class="carousel-caption">
           </div>      
         </div>
 
         <div class="item">
-          <img src="{{ url_for('static', filename='image/home/dehliciaslogo2.png')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/dehliciaslogo2.png');?>" alt="Image">
           <div class="carousel-caption">
           </div>  
 
           </div> 
           <div class="item">
-          <img src="{{ url_for('static', filename='image/home/frentedehlicias.jpg')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/frentedehlicias.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div> 
 
           </div> 
           <div class="item">
-          <img src="{{ url_for('static', filename='image/home/logo.jpg')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/logo.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>   
  	  
           </div> 
           <div class="item">
-          <img src="{{ url_for('static', filename='image/home/frente.jpg')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/frente.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>   
 
           </div> 
           <div class="item">
-          <img src="{{ url_for('static', filename='image/home/studiotatu.jpg')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/studiotatu.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>   
 
           </div> 
           <div class="item">
-          <img src="{{ url_for('static', filename='image/home/Dashtattoo.jpg')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/Dashtattoo.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>  
 
           </div> 
           <div class="item">
-            <a href="/servicos/{{ user.id }}"><img src="{{ url_for('static', filename='image/home/logo2.jpg')}}" alt="Image"></a>
+            <a href="/servicos/{{ user.id }}"><img src="<?php echo base_url('assets/img/home/logo2.jpg');?>" alt="Image"></a>
           <div class="carousel-caption">
           </div>  
 
           </div> 
           <div class="item">
-          <img src="{{ url_for('static', filename='image/home/logo4.jpg')}}" alt="Image">
+          <img src="<?php echo base_url('assets/img/home/logo4.jpg');?>" alt="Image">
           <div class="carousel-caption">
           </div>  
 
@@ -230,11 +224,11 @@
   <br>
   <div class="row">
     <div class="col-sm-3">
-      <img src="{{ url_for('static', filename='image/home/bolocopo.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
+      <img src="<?php echo base_url('assets/img/home/bolocopo.jpg');?>" class="img-responsive" style="width:100%" alt="Image">
       <p>Bolo no Copo - R$ 5,00</p>
     </div>
     <div class="col-sm-3"> 
-      <img src="{{ url_for('static', filename='image/home/empadas.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
+      <img src="<?php echo base_url('assets/img/home/empadas.jpg');?>" class="img-responsive" style="width:100%" alt="Image">
       <p>Empadas - R$ 3,00</p>    
     </div>
     <div class="col-sm-3">
@@ -267,13 +261,20 @@
   <b><h3>OUTROS COMÉRCIOS E SERVIÇOS</h3><b>
   <br>
   <div class="row">
-    <?php foreach($dono as $donos): ?>
+  <?php   if (isset($foto) && sizeof($foto) > 0):  ?>  
+          <?php foreach ($foto as $donos):?>
+    
     <div class="col-sm-2">
-      <a href="<?php echo base_url('index.php/servico/'. $donos->id );?>">
+      <a href="<?php echo base_url('servico/'. $donos->user_fk );?>">
       <img src="<?php echo base_url('uploads/logos/'.$donos->foto); ?>" class="img-responsive" style="width:100%" alt="Image">
       <p><?php echo $donos->nome ?></p></a>
     </div>
+    <!------------------------ -->    
     <?php endforeach; ?>
+                  </table>
+                  <?php else: ?>
+                    Sem novos comércios
+        <?php endif; ?>
    <!-- <div class="col-sm-2"> 
       <a href="/servicos/{{ 3 }}"><img src="{{ url_for('static', filename='image/home/atelierdiego.jpg')}}" class="img-responsive" style="width:100%" alt="Image">
       <p>Atelier Diego Amoroso</p></a>    

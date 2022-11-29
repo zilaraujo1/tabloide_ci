@@ -1,17 +1,103 @@
+.empresa{
+  text-align: center;
+  margin-top: 80px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 4.0em;
+  color: #CE7C2B;
+}
+  .carousel-inner img {
+    width: 25%; /* Set width to 25% */
+    min-height: 100px;
+  }
+  .slide-my{
+    margin-top: 80px;
+    height: 280px;
+    margin-bottom: 150px;
+  }
+  
+  
+  
+  .img-serv > img{
+    height: 280px;
+    width: 60%;
+  }
+  .img-service{
+    margin:40px 20px;
+    padding: 10px;
+    width:65%;
+    height: 200px;
+    border-radius:10px;
+    
+  }
+   p{
+    margin-top: 15px;
+    padding: 15px;
+    color: rgb(68, 67, 67);
+    opacity: 0.8;
+    font-family: 'Montserrat Alternates', sans-serif;
+  }
+  .desc{
+    padding: 30px;
+    margin-top: 150px;
+    line-height: 3em;
+    margin-bottom:200px;
+    border:1px black solid;
+    border-radius:10px;
+    box-shadow: 2px 8px 1px 1px rgba(118, 118, 122, 0.199);
+    color: white;
+    opacity: 0.8;
+    font-size: 1.6rem;
+    font-family: 'Montserrat Alternates', sans-serif;
+    background-color: #ff8408be;
+    
+  }
+  .aside{
+    padding: 30px;
+    margin-top: 150px;
+    
+    margin-bottom:200px;
+   
+    
+    
+  }
+  form{
+    margin-bottom: 200px;
+    
+  }
+  form>input{
+    width: 200px;
+  }
+  .img-service{
+    width: 400px;
+  }
+  .img-contato{
+    width:100%;
+    padding: 5px;
+
+  }
+  .info {
+    text-align: center;
+    padding: 10px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 2.6em;
+    color: #CE7C2B;
+  }
+  
   /* Adicione uma cor de fundo cinza e algum preenchimento ao rodapé */
   footer {
-	background-color: #FAEBD7;
-	padding: 25px;
-  }
-
-  .carousel-inner img {
-	width: 25%; /* Set width to 25% */
-	min-height: 200px;
-  }
-
+    margin-top: 100px;
+    background-color: #ff8408be;
+    padding: 25px;
+    text-align:center;
+    }
   /* Oculte o texto do carrossel quando a tela tiver menos de 600 pixels de largura */
   @media (max-width: 600px) {
-	.carousel-caption {
+    .carousel-caption {
 	  display: none; 
+	}
+	img-service{
+	    width:100%;
+      margin: 0%;
+      display: block;
 	}
   }

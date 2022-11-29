@@ -2,34 +2,42 @@
 
 
 <title><?php echo $titulo ; ?></title>
-</head>
-<main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4">
+
 <div class="container">
-    <div class="page-header">
-        <h1>Login</h1>
-    </div>
-    <hr>
-  <div class="coluna col3">&nbsp;</div>
-        <div class="coluna col4">
-        
-
-            <?php 
-                if($msg = get_msg()):
-                    echo '<div class="msg-box">'.$msg.'</div>';
-                endif;
-
-                echo form_open();
-                echo form_label('Usuário', 'login');
-                echo form_input('login', set_value('login'), array('autofocus' => 'autofocus'));
-                echo form_label('Senha: ', 'senha');
-                echo form_password('senha');
-                echo form_submit('enviar',  'Autenticar', array('class'=> 'botao'));
-                echo form_close();
-
-
-'                       '
-            ?>
-            
-        </div>
+<?php
+if ($msg = get_msg()) :
+    echo '<div class="msg-box alert alert-danger">' . $msg . '</div>';
+endif;
     
+?>
+<form action="autentica_login" method="POST">
+    <h3>Login</h3>
+    
+    <div class="form-group">
+      
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="Entre com um email válido">  
+    </div>
+    
+    
+    <div class="form-group">
+      
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Entre com sua senha">  
+    </div>
+      
+    
+     
+      <div class="form-group">
+
+    <button type="submit" class="btn btn-primary">Login</button>
+  </div>
+</form>
+<br>
+
+
+
+
+
 </div>
+<?php $this->load->view('commons/footer'); ?>

@@ -77,13 +77,13 @@
 	
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/cadastro"><span class="glyphicon glyphicon-log-in"></span>CADASTRO</a></li>
+        <li><a href="<?php echo base_url('/cadastro_users'); ?>"><span class="glyphicon glyphicon-log-in"></span>CADASTRE-SE</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+        <li><a href="<?php echo base_url('/login'); ?>"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
+        <li><a href="<?php echo base_url('/logout'); ?>"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
       </ul>
     </div>
   </div>

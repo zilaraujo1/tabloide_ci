@@ -1,19 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Livro extends CI_Controller{
+class Servico extends CI_Controller{
 
     function __construct(){
         parent::__construct();
         //imports
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->load->model('options_model', 'option');
-        $this->load->model('livros_model', 'livro');
+        $this->load->model('servicos_model', 'serv');
+        $this->load->model('usuarios_model', 'user');
+        $this->load->model('estabelecimentos_model', 'estab');
     }
 
     public function index(){
-        redirect('livro/listar', 'refresh');
+        
+
+        $estab_fk = $this->uri->segment(3); 
+        $data['dono'] = $this->estab->get_single($estab_fk);
+        $data['titulo'] = "Cadastro de serviços";
+        $this->load->view('Pagina/servico', $data);
     }
     public function listar(){
         //verifica se o usuário está logado
@@ -27,29 +33,39 @@ class Livro extends CI_Controller{
         $dados['livros'] = $this->livro->get();
         $this->load->view('painel/livros', $dados);
     }
-    public function pesquisar(){
-        //verifica se o usuário está logado
-        verifica_login();
-
-        //carrega a view
-        $dados['titulo'] = 'BNTH - Listagem de livros';
+//---------------------------------------------------------------------------------------
+    public function form_servico(){
+       /* if(($estab_fk = $this->uri->segment(3))> 0): //segment(2)= refêre-se a posição da rota chamada pós barra da url  no navegador
+            if($estab= $this->estab->get_single($estab_fk)): // método da model
+                $dados['dono'] = $estab;
+              //  $dados_update['id'] = $$descLivro->id;
+            else:
+                set_msg('<p>usuário inexistente!.</p>');
+                redirect('form_servico', 'refresh');
+            endif;
+        else:
+            set_msg('<p>Você deve indicar um usuário para continuar!</P>');
+            redirect('servico', 'refresh');
+        endif;
+       */
         
-        $dados['h2'] = 'Buscar livro';
-        $dados['tela'] = 'pesquisar'; //para carregar qual o tipo da view
-        $dados['livros'] = $this->livro->busca();
-        $this->load->view('painel/livros', $dados);
+         $user_fk= $this->uri->segment(2); 
+        $data['dono']= $this->estab->get_single($user_fk);
+        $data['titulo'] = "Cadastro de serviços";
+        $this->load->view('form_servico', $data);
     }
-    public function cadastro_livros(){
+//-------------------------------------------------------------------------------
+    public function cadastro_servico(){
         //verifica se o usuário está logado
-        verifica_login();
+       // verifica_login();
 
         //regras de validação
-        $this->form_validation->set_rules('titulo', 'Título', 'trim|required');
-        $this->form_validation->set_rules('autor', 'Autor', 'trim|required');
-        $this->form_validation->set_rules('editora', 'Editora', 'trim|required');
-        $this->form_validation->set_rules('genero', 'Genero', 'trim|required');
+        $this->form_validation->set_rules('tipo', 'Tipo', 'trim|required');
         $this->form_validation->set_rules('descricao', 'descricao', 'trim|required');
-        $this->form_validation->set_rules('unidade', 'unidade', 'trim|required');
+        $this->form_validation->set_rules('valor', 'Valor', 'trim|required');
+        $this->form_validation->set_rules('horario_func', 'Horario_func', 'trim|required');
+        //$this->form_validation->set_rules('foto', 'Foto', 'trim|required');
+        
      
         //verifica a validação
         if($this->form_validation->run() == FALSE):
@@ -57,34 +73,56 @@ class Livro extends CI_Controller{
                 set_msg(validation_errors());
             endif;
         else:
-            $this->load->library('upload', config_upload());
-            if($this->upload->do_upload('imagem')):
+            $this->load->library('upload', config_upload_serv());
+//--------------------------------------------------------------------------------------
+            $arquivos_permitidos = ['jpg','jpeg','png'];
+            $arquivos = $_FILES['foto'];
+            $nomes = $arquivos['name'];
+
+            $extensao = explode('.', $nomes);
+            $extensao = end($extensao);
+            $nomes = rand().'-'.$nomes;
+            if(in_array($extensao, $arquivos_permitidos)):
+             //   $query = $this->db->query("insert into imagens (upload_fotos, estab_fk) values('$nomes[$i]','$dados_user')");
+               $mover = move_uploaded_file($_FILES['foto']['tmp_name'], './uploads/servicos/'.$nomes);
+         //   endif;
+//-----------------------------------------------------------------------------
+           
+          //  if($this->upload->do_upload($novo_nome)):
                 //upload foi efetuado
-                $dados_upload = $this->upload->data();
+//$dados_upload = $this->upload->data();
+            
+            
                 $dados_form = $this->input->post();
 
-              //  var_dump($dados_upload);
-               $dados_insert['titulo'] = to_bd($dados_form['titulo']);
-               $dados_insert['autor'] = to_bd($dados_form['autor']);
-               $dados_insert['editora'] = to_bd($dados_form['editora']);
-               $dados_insert['genero'] = to_bd($dados_form['genero']);
-               $dados_insert['descricao'] = to_bd($dados_form['descricao']);
-               $dados_insert['unidade'] = to_bd($dados_form['unidade']);
-            
-
-               $dados_insert['imagem'] = $dados_upload['file_name'];
+                $dados_insert['tipo'] = to_bd($dados_form['tipo']);
+                $dados_insert['descricao'] = to_bd($dados_form['descricao']);
+                $dados_insert['valor'] = to_bd($dados_form['valor']);
+                $dados_insert['horario_func'] = to_bd($dados_form['horario_func']);
+                
+                 //$dados_insert['foto'] = to_bd($dados_form[]);
+                 $dados_insert['foto'] = $nomes;
+                $dados_insert['estab_fk'] = to_bd($dados_form['estab_fk']);
+                
+                
+             
+                print_r($novo_nome);
                //salvar no banco de dados
-               if($id = $this->livro->salvar($dados_insert)):
-                    set_msg('<p>Livro cadastrado com sucesso!</p>');
-                    redirect('livro/editar/'.$id, 'refresh');
+               if($id = $this->serv->salvar($dados_insert)):
+                    set_msg('<p>Dados cadastrado com sucesso!</p>');
+                    $estab_fk = $this->uri->segment(2); 
+                    $data['dono'] = $this->estab->get_single($estab_fk);
+                     $data['titulo'] = "Cadastro de serviços";
+                    redirect('/', $data, 'refresh');
                else:
-                    set_msg('<p> Erro! Livro não foi cadastrado.</p>');
+                    set_msg('<p> Erro! Dados não cadastrado.</p>');
+                    redirect('Servico/form_servico', $data, 'refresh');
                endif;
 
             else:
                 //erro no upload
                 $msg = $this->upload->display_errors();
-                $msg .= '<p>São permitidas arquivos JPG e PNG de até 512KB.</p>';
+                $msg .= '<p>São permitidas arquivos JPG e PNG de até 1042KB.</p>';
                 set_msg($msg);
             endif;
         endif;
@@ -93,10 +131,10 @@ class Livro extends CI_Controller{
 
         //carrega a view
 
-        $dados['titulo'] = 'BNTH - Cadastro de vídeoaulas';
-        $dados['h2'] = 'Cadastro de videoaulas';
-        $dados['tela'] = 'cadastrar'; //para carregar qual o tipo da view
-        $this->load->view('/cadastro_livros', $dados);
+        
+         $data['dono'] = $this->estab->get();
+        // $data['titulo'] = "Cadastro de serviços";
+         $this->load->view('home', $data); 
     
     }
     public function excluir(){
