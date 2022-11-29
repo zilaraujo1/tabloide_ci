@@ -32,7 +32,7 @@ endif;
 
 if(!function_exists('config_upload')):
 	//define as configurações para upload de imagens/arquivos
-	function config_upload($path='./uploads/logos/', $types='jpg|png', $size=1024){
+	function config_upload($path='./uploads/logos/', $types='jpg|png|gif', $size=1024){
 		$config['upload_path']= $path;
 		$config['allowed_types'] = $types;
 		$config['max_size'] = $size;
@@ -41,7 +41,7 @@ if(!function_exists('config_upload')):
 endif;
 if(!function_exists('config_upload_serv')):
 	//define as configurações para upload de imagens/arquivos
-	function config_upload_serv($path='./uploads/servicos/', $types='jpg|png', $size=1024){
+	function config_upload_serv($path='./uploads/servicos/', $types='jpg|png|gif', $size=1024){
 		$config['upload_path']= $path;
 		$config['allowed_types'] = $types;
 		$config['max_size'] = $size;

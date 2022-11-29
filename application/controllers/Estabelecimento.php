@@ -61,6 +61,20 @@ class Estabelecimento extends CI_Controller{
                    $mover = move_uploaded_file($_FILES['upload_fotos']['tmp_name'][$i], './uploads/logos/'.$nomes[$i]);
                 endif;
             endfor;
+
+ //--------------------------------------------------------------------------------------
+        $arquivos = $_FILES['foto'];
+        $logo = $arquivos['name'];
+
+        $extensao = explode('.', $logo);
+        $extensao = end($extensao);
+        $logo = rand().'-'.$logo;
+        
+        if(in_array($extensao, $arquivos_permitidos)):
+         $mover = move_uploaded_file($_FILES['foto']['tmp_name'], './uploads/logos/'.$logo);
+    
+//-----------------------------------------------------------------------------
+   
             $this->load->library('upload', config_upload());
             
                 //upload foi efetuado
@@ -78,7 +92,7 @@ class Estabelecimento extends CI_Controller{
                $dados_insert['descricao'] = to_bd($dados_form['descricao']);
                $dados_insert['user_fk'] = to_bd($dados_form['user_fk']);
               
-               $dados_insert['foto'] = $dados_upload['file_name'];
+               $dados_insert['foto'] = $logo;
              
               
                //salvar no banco de dados
@@ -98,7 +112,7 @@ class Estabelecimento extends CI_Controller{
             endif;
         
 
-
+        endif;
 
         //carrega a view
 

@@ -74,10 +74,23 @@ class Servico extends CI_Controller{
             endif;
         else:
             $this->load->library('upload', config_upload_serv());
+//--------------------------------------------------------------------------------------
+            $arquivos_permitidos = ['jpg','jpeg','png'];
+            $arquivos = $_FILES['foto'];
+            $nomes = $arquivos['name'];
+
+            $extensao = explode('.', $nomes);
+            $extensao = end($extensao);
+            $nomes = rand().'-'.$nomes;
+            if(in_array($extensao, $arquivos_permitidos)):
+             //   $query = $this->db->query("insert into imagens (upload_fotos, estab_fk) values('$nomes[$i]','$dados_user')");
+               $mover = move_uploaded_file($_FILES['foto']['tmp_name'], './uploads/servicos/'.$nomes);
+         //   endif;
+//-----------------------------------------------------------------------------
            
-            if($this->upload->do_upload('foto')):
+          //  if($this->upload->do_upload($novo_nome)):
                 //upload foi efetuado
-                $dados_upload = $this->upload->data();
+//$dados_upload = $this->upload->data();
             
             
                 $dados_form = $this->input->post();
@@ -86,15 +99,14 @@ class Servico extends CI_Controller{
                 $dados_insert['descricao'] = to_bd($dados_form['descricao']);
                 $dados_insert['valor'] = to_bd($dados_form['valor']);
                 $dados_insert['horario_func'] = to_bd($dados_form['horario_func']);
-              //  $dados_insert['foto'] = to_bd($dados_form['foto']);
+                
+                 //$dados_insert['foto'] = to_bd($dados_form[]);
+                 $dados_insert['foto'] = $nomes;
                 $dados_insert['estab_fk'] = to_bd($dados_form['estab_fk']);
                 
                 
-                
-                
-                $dados_insert['foto'] = $dados_upload['file_name'];
              
-                var_dump($dados_insert);
+                print_r($novo_nome);
                //salvar no banco de dados
                if($id = $this->serv->salvar($dados_insert)):
                     set_msg('<p>Dados cadastrado com sucesso!</p>');
@@ -110,7 +122,7 @@ class Servico extends CI_Controller{
             else:
                 //erro no upload
                 $msg = $this->upload->display_errors();
-                $msg .= '<p>São permitidas arquivos JPG e PNG de até 512KB.</p>';
+                $msg .= '<p>São permitidas arquivos JPG e PNG de até 1042KB.</p>';
                 set_msg($msg);
             endif;
         endif;
@@ -122,7 +134,7 @@ class Servico extends CI_Controller{
         
          $data['dono'] = $this->estab->get();
         // $data['titulo'] = "Cadastro de serviços";
-         $this->load->view('home', $data);
+         $this->load->view('home', $data); 
     
     }
     public function excluir(){

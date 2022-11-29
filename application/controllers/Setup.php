@@ -31,7 +31,9 @@ class Setup extends CI_Controller {
                //verifica a validação
         if($this->form_validation->run()== FALSE):
             if(validation_errors()):
-                set_msg(validation_errors()); //função do helper
+                set_msg('<p> Cadastro inexistente! Verifique se os dados estão corretos!</p>');
+                $dados['titulo'] = "login";
+                $this->load->view('painel/login', $dados);//função do helper
             endif;
         else:
             $email = $this->input->post("email");
